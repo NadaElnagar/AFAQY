@@ -43,6 +43,11 @@ class VehicleExpensesListRepository
                 $services->orderBy('created_at', $direction);
                 $InsurancePayments->orderBy('contract_date', $direction);
             }
+            if ($request->sort == 'cost') {
+                $fuel->orderBy('cost', $direction);
+                $services->orderBy('total', $direction);
+                $InsurancePayments->orderBy('amount', $direction);
+            }
         }
 
         if ($request->has('minimum_cost') && $request->minimum_cost == true) {
@@ -70,9 +75,11 @@ class VehicleExpensesListRepository
 
 
         $allItems = $this->filterTypeOption($request, $fuel, $services, $InsurancePayments);
-
+        if ($request->has('sort')) {
+            $allItems = $this->sort($allItems, $request->sort, true);
+        }
         //pagination by any of result
-        $allItems = new FuelEntriesCollection($allItems->paginate($perPage)->all());
+        $allItems = new FuelEntriesCollection($allItems);
 
         return $allItems;
     }
