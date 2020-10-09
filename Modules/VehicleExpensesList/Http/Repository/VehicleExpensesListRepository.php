@@ -77,9 +77,12 @@ class VehicleExpensesListRepository
         $allItems = $this->filterTypeOption($request, $fuel, $services, $InsurancePayments);
         if ($request->has('sort')) {
             $allItems = $this->sort($allItems, $request->sort, true);
+            $allItems = new FuelEntriesCollection($allItems);
+        }else{
+            $allItems = new FuelEntriesCollection($allItems->paginate($perPage)->all());
         }
         //pagination by any of result
-        $allItems = new FuelEntriesCollection($allItems);
+
 
         return $allItems;
     }
