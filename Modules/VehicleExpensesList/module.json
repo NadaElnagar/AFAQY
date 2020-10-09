@@ -1,0 +1,13 @@
+{
+    "name": "VehicleExpensesList",
+    "alias": "vehicleexpenseslist",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\VehicleExpensesList\\Providers\\VehicleExpensesListServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
